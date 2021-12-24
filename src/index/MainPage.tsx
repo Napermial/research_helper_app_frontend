@@ -17,12 +17,12 @@ export default function MenuAppBar() {
 
     const handleLogin = () => {
         setAuth(true);
+        setAnchorEl(null);
     };
 
     const handleLogout = () => {
         setAuth(false)
     }
-
 
     const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget);
@@ -82,7 +82,9 @@ export default function MenuAppBar() {
                         </div>
                     )}
                     {!auth &&
-                        <LoginIcon fill="white" onClick={handleLogin}/>
+                        <IconButton size="large" color="inherit" onClick={handleLogin}>
+                            <LoginIcon  />
+                        </IconButton>
                     }
                 </Toolbar>
             </AppBar>
