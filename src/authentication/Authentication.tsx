@@ -3,9 +3,9 @@ import {createBrowserHistory} from "history";
 import { Auth0Provider } from '@auth0/auth0-react';
 
 
-const Auth0ProviderWithHistory : React.FC = ( props  ) => {
-    const domain = process.env.AUTH0_DOMAIN || "";
-    const clientId = process.env.AUTH0_CLIENT_ID || "";
+const Auth0ProviderWithHistory : React.FC = ( props ) => {
+    const domain = process.env.REACT_APP_AUTH0_DOMAIN || "";
+    const clientId = process.env.REACT_APP_AUTH0_CLIENT_ID || "";
 
 
     const history = createBrowserHistory();

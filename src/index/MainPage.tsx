@@ -9,19 +9,20 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import LoginIcon from "@mui/icons-material/Login";
+import {useAuth0} from "@auth0/auth0-react";
 
 
 export default function MenuAppBar() {
-    const [auth, setAuth] = React.useState(false);
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+    const {loginWithRedirect, logout, isAuthenticated} = useAuth0();
 
-    const handleLogin = () => {
-        setAuth(true);
-        setAnchorEl(null);
+    const handleLogin = async () => {
+        await loginWithRedirect();
     };
 
+
     const handleLogout = () => {
-        setAuth(false)
+        logout({returnTo: window.location.origin})
     }
 
     const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -48,7 +49,7 @@ export default function MenuAppBar() {
                     <Typography variant="h6" component="div" sx={{flexGrow: 1}}>
                         Research helper app
                     </Typography>
-                    {auth && (
+                    {isAuthenticated && (
                         <div>
                             <IconButton
                                 size="large"
@@ -81,9 +82,9 @@ export default function MenuAppBar() {
                             </Menu>
                         </div>
                     )}
-                    {!auth &&
+                    {!isAuthenticated &&
                         <IconButton size="large" color="inherit" onClick={handleLogin}>
-                            <LoginIcon  />
+                            <LoginIcon/>
                         </IconButton>
                     }
                 </Toolbar>
