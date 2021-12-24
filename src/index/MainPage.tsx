@@ -5,16 +5,19 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import AccountCircle from '@mui/icons-material/AccountCircle';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import LoginIcon from "@mui/icons-material/Login";
 import {useAuth0} from "@auth0/auth0-react";
+import {Avatar} from "@mui/material";
+import {deepPurple} from "@mui/material/colors";
 
 
 export default function MenuAppBar() {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-    const {loginWithRedirect, logout, isAuthenticated} = useAuth0();
+    const {loginWithRedirect, logout, isAuthenticated, user} = useAuth0();
+
+    const userName: string = user?.email || "U";
 
     const handleLogin = async () => {
         await loginWithRedirect();
@@ -59,7 +62,7 @@ export default function MenuAppBar() {
                                 onClick={handleMenu}
                                 color="inherit"
                             >
-                                <AccountCircle/>
+                                <Avatar sx={{bgcolor: deepPurple[500]}}>{userName[0]}</Avatar>
                             </IconButton>
                             <Menu
                                 id="menu-appbar"
