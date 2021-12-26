@@ -1,5 +1,8 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {Box, CardContent, Grid, Paper, styled} from "@mui/material";
+import axios from "axios";
+import {useAuth0} from "@auth0/auth0-react";
+
 
 const Item = styled(Paper)(({theme}) => ({
     ...theme.typography.body2,
@@ -11,8 +14,37 @@ const Item = styled(Paper)(({theme}) => ({
 
 function Experiments() {
 
-    const arr = new Array(14);
-    arr.fill(0)
+    const {getAccessTokenWithPopup} = useAuth0();
+
+    const arr: Array<Object> = [];
+
+
+    useEffect(() => {
+        loadExperiments();
+    },[])
+
+    async function loadExperiments() {
+
+
+        try {
+            const accessToken = await getAccessTokenWithPopup({audience: "researchhelperappbd"});
+
+            await axios.get("http://localhost:8000/experiments/list", {
+                    headers: {
+                        'Authorization': `Bearer ${accessToken}`
+                    }
+                }
+            ).then((value) => {
+                arr.push(value)
+            })
+        } catch
+            (e) {
+            console.error(e)
+        }
+
+
+    }
+
 
     return (
         <Box sx={{width: '100%', paddingTop: 2}}>

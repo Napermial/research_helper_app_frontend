@@ -36,6 +36,8 @@ export default function MenuAppBar() {
         setAnchorEl(null);
     };
 
+
+
     return (
         <Box sx={{flexGrow: 1}}>
             <AppBar position="static">
